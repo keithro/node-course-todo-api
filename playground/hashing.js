@@ -2,13 +2,19 @@ const {SHA256} = require('crypto-js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+// --------------------
+// jwt.sign - takes object and your secret code to sign - creates hash and returns token value
+// jwt.verify - takes token and your secret code to verify that it was not manipulated by comparing to 
+// (see below under 'SHA256 ONLY')
+// --------------------
+
 var password = '123abc';
 
-// bcrypt.genSalt(10, (err, salt) => {
-//   bcrypt.hash(password, salt, (err, hash) => {
-//     console.log(hash);
-//   });
-// });
+bcrypt.genSalt(10, (err, salt) => {
+  bcrypt.hash(password, salt, (err, hash) => {
+    console.log(hash);
+  });
+});
 
 var hashedPassword = '$2a$10$Y4Q96Vb2MnxLToBZUmkaUOOjsRi65IVRmNyA/bjrapJcX2DSZKifi';
 

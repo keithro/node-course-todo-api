@@ -33,6 +33,7 @@ var UserSchema = new mongoose.Schema({
   }]
 });
 
+// to override what gets sent back when creating a user (res.body?)
 UserSchema.methods.toJSON = function () {
   var user = this;
   var userObject = user.toObject();
@@ -52,6 +53,7 @@ UserSchema.methods.generateAuthToken = function () {
   });
 };
 
+// 'statics' creates a model method rather than an instance method
 UserSchema.statics.findByToken = function (token) {
   var User = this;
   var decoded;
