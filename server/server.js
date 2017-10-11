@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 // =============
 //  TODO ROUTES
 // =============
-// POST /todos
+// CREATE TODO ROUTE - POST /todos
 app.post('/todos', authenticate, (req, res) => {
   var todo = new Todo({
     text: req.body.text,
@@ -33,7 +33,7 @@ app.post('/todos', authenticate, (req, res) => {
   });
 });
 
-// GET /todos
+// GET ALL TODOS ROUTE - GET /todos
 app.get('/todos', authenticate, (req, res) => {
   Todo.find({
     _creator: req.user._id
@@ -44,7 +44,7 @@ app.get('/todos', authenticate, (req, res) => {
   });
 });
 
-// GET /todos/:id
+// GET TODO BY ID ROUTE - GET /todos/:id
 app.get('/todos/:id', authenticate, (req, res) => {
   var id = req.params.id;
   // check if id is valid
@@ -68,7 +68,7 @@ app.get('/todos/:id', authenticate, (req, res) => {
   });
 });
 
-// DELETE /todos/:id
+// DELETE TODO ROUTE - DELETE /todos/:id
 app.delete('/todos/:id', authenticate, (req, res) => {
   var id = req.params.id;
 
@@ -90,7 +90,7 @@ app.delete('/todos/:id', authenticate, (req, res) => {
   });
 });
 
-// EDIT /todos/:id
+// EDIT TODO ROUTE - EDIT /todos/:id
 app.patch('/todos/:id', authenticate, (req, res) => {
   var id = req.params.id;
   var body = _.pick(req.body, ['text', 'completed']);
@@ -120,7 +120,7 @@ app.patch('/todos/:id', authenticate, (req, res) => {
 // =============
 //  USER ROUTES
 // =============
-// POST /users
+// CREATE USER ROUTE - POST /users
 app.post('/users', (req, res) => {
   var body = _.pick(req.body, ['email', 'password']);
   var user = new User(body);
@@ -135,12 +135,12 @@ app.post('/users', (req, res) => {
   })
 });
 
-// GET users/me - GET route for authenticated user
+// GET USER ROUTE - GET /users/me
 app.get('/users/me', authenticate, (req, res) => {
   res.send(req.user);
 });
 
-// POST /users/login
+// CREATE USER ROUTE - POST /users/login
 app.post('/users/login', (req, res) => {
   var body = _.pick(req.body, ['email', 'password']);
 
@@ -153,7 +153,7 @@ app.post('/users/login', (req, res) => {
   });
 });
 
-// LOGOUT - DELETE /users/me/token
+// LOGOUT ROUTE - DELETE /users/me/token
 app.delete('/users/me/token', authenticate, (req, res) => {
   req.user.removeToken(req.token).then(() => {
     res.status(200).send();
